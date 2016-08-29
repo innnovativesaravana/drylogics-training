@@ -1,0 +1,25 @@
+What is the average age of employees?
+
+SELECT name, age(birth_date) FROM employees;
+SELECT avg(age(birth_date)) FROM employees;
+
+What is the maximum and minimum age of employees?
+
+SELECT max(age(birth_date)) FROM employees;
+SELECT min(age(birth_date)) FROM employees;
+
+Who has worked in the company for the most number of years?
+
+SELECT * FROM employees ORDER BY joining_date LIMIT 1;
+
+Who is the second oldest employee in Public Relations?
+
+SELECT name,birth_date FROM employees WHERE department='Public Relations' ORDER BY birth_date LIMIT 1 OFFSET 1;
+
+List the employees who are going to retire in 2017? (retirement age is 30)
+
+SELECT name, birth_date FROM employees ORDER BY EXTRACT(year FROM birth_date) < (2017-59);
+
+List names of all new joinees(who joined this year)in ascending order of their age?
+
+SELECT name, joining_date, birth_date FROM employees WHERE EXTRACT(year FROM joining_date) = 2016 ORDER BY birth_date;
