@@ -1,0 +1,106 @@
+ <!DOCTYPE html>
+<html>
+<head>
+  <title>Lodash School Hash</title>
+  <script type="text/javascript" src="scripts/lodash.js"></script>
+  <style type="text/css">
+    table {
+      border:2px solid black;
+      width:70%;
+      /*padding: 5px;*/
+    }
+    tr, th, td {
+      border:1px solid black;
+    }
+  </style>
+
+  <script type="text/javascript">
+    var school_hash = [
+      {teacher: 'Raju', student: 'Guru', subject: 'History', mark1: '100', mark2: '100'},
+      {teacher: 'Shanta', student: 'Murali', subject: 'Geography', mark1: '80', mark2: '60'},
+      {teacher: 'Prabhu', student: 'Guru', subject: 'Maths', mark1: '90', mark2: '95'},
+      {teacher: 'Raju', student: 'Murali', subject: 'Civics', mark1: '100', mark2: '100'},
+      {teacher: 'Raju', student: 'Guru', subject: 'Civics', mark1: '85', mark2: '80'},
+      {teacher: 'Raju', student: 'Jansi', subject: 'Civics', mark1: '80', mark2: '70'},
+      {teacher: 'Raju', student: 'Jansi', subject: 'History', mark1: '100', mark2: '70'},
+      {teacher: 'Raju', student: 'Murali', subject: 'History', mark1: '70', mark2: '100'},
+      {teacher: 'Shanta', student: 'Guru', subject: 'Geography', mark1: '80', mark2: '90'},
+      {teacher: 'Shanta', student: 'Jansi', subject: 'Geography', mark1: '60', mark2: '100'},
+      {teacher: 'Prabhu', student: 'Murali', subject: 'Maths', mark1: '100', mark2: '85'},
+      {teacher: 'Prabhu', student: 'Jansi', subject: 'Maths', mark1: '100', mark2: '90'}
+    ];
+  
+    function ans1() {
+      //return _(school_hash).chain().map('student').uniq().join(', ')
+      return _.reduce(school_hash, function(students, record){
+        if(students.indexOf(record.student) == -1) {
+          students.push(record.student);
+        }
+        return students;
+      }, []).join(', ');
+      // return _(school_hash)
+      //   .chain()
+      //   .uniqBy('student')
+      //   .map('student').join(', ');
+    }
+
+    function ans2(){
+      return _(school_hash)
+        .chain()
+        .uniqBy('teacher')
+        .map('teacher').join(', ');
+    }
+    function ans3(){
+       return _.reduce(school_hash, function(students, record){
+        if(students.indexOf(record.student) >= -1) {
+          
+          students.push(record.student);
+          students.push(record.subject);
+          students.push(record.mark1);
+          students.push(record.mark2);
+        
+        }
+        return students;
+      }, []).join(', ');
+    }
+
+    
+    function printAnswers() {
+      document.getElementById('ans1').innerHTML = ans1();
+      document.getElementById('ans2').innerHTML = ans2();
+      document.getElementById('ans3').innerHTML = ans3();
+      // document.getElementById('ans4').innerHTML = ans4();
+    }
+  </script>
+</head>
+<body>
+<button onclick="printAnswers()">Print Answers</button>
+  <table>
+    <caption>School Hash Questions &amp; Answers</caption>
+    <thead>
+      <tr>
+        <th width="70%">Question</th>
+        <th>Answer</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Find the names of the students</td>
+        <td id="ans1"></td>
+      </tr>
+      <tr>
+        <td>Find the name of the Teachers</td>
+        <td id="ans2"></td>
+      </tr>
+      <tr>
+        <td>Display student marks in each subjects</td>
+        <td id="ans3"></td>
+      </tr>
+      <tr>
+        <td>Which teacher have the best success rate with students? ie what is the average marks by teacher?</td>
+        <td id="ans4"></td>
+      </tr>
+    </tbody>
+  </table>
+</body>
+</html>
